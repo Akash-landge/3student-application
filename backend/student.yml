@@ -1,36 +1,37 @@
 ---
-apiVersion:  v1  #acts a manuall to your system
+apiVersion: v1
 kind: Pod
-metadata:  #like a tag
-        name: mypod2
-        namespace: name-s-todo
-        labels: 
-            app: studentapp
+metadata:
+  name: mypod2
+  namespace: name-s-todo
+  labels:
+    app: studentapp
 spec:
- containers:
+  containers:
     - name: mypod-cont2
       image: akashlandge/student
-      resources: 
-          requests:
-            cpu: "50m"
-            memory: "90Mi"        
-      ports:  
+      resources:
+        requests:
+          cpu: "50m"
+          memory: "90Mi"
+      ports:
         - name: http
           containerPort: 80
           protocol: TCP
 ---
 apiVersion: v1
-kind:  Service
-metadata: 
-      name: nodeport
-      namespace: name-s-todo
+kind: Service
+metadata:
+  name: nodeport
+  namespace: name-s-todo
 spec:
-    type: LoadBalancer  
-    selector: 
-      app: studentapp
-    ports:
-        - port: 80
-          targetPort: 80
-          protocol: TCP
+  type: LoadBalancer  # Change to NodePort if you want to use NodePort instead
+  selector:
+    app: studentapp
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+
 
         
